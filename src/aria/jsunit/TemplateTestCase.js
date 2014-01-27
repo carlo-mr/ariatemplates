@@ -136,6 +136,10 @@ Aria.classDefinition({
                     this.env[i] = env[i];
                 }
             }
+            //reset the data object in case a module controller has been defined for this test.
+            if(this.env["moduleCtrl"] !== null && this.env["data"] !== null) {
+                this.env["data"] = null;
+            }
         },
 
         /**

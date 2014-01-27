@@ -337,7 +337,9 @@ Aria.classDefinition({
                 if (!loadedClasses.hasOwnProperty(classpath) || classpath.indexOf("aria.") === 0) {
                     continue;
                 }
-                aria.core.ClassMgr.unloadClass(classpath, true);
+                if(classpath) {
+                    aria.core.ClassMgr.unloadClass(classpath, true);
+                }
             }
 
             // Activate the autorun in order to start the campaign as soon as the tests have been reloaded
