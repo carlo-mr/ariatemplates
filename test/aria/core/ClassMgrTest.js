@@ -56,6 +56,45 @@ Aria.classDefinition({
             }, "testAsyncCircularDependency", aria.core.ClassMgr.CIRCULAR_DEPENDENCY);
         },
 
+        testAsyncUnloadEmptyClasspath : function() {
+            this._checkUnloadEmptyClasspath("testAsyncUnloadEmptyClasspath");
+        },
+
+        _checkUnloadEmptyClasspath : function(testName) {
+            try {
+                aria.core.ClassMgr.unloadClass("");
+            } catch(e) {
+                this.fail("Unload class should not fail for empty classpath.");
+            }
+            this.notifyTestEnd(testName);
+        },
+
+        testAsyncUnloadNullClasspath : function() {
+            this._checkUnloadNullClasspath("testAsyncUnloadNullClasspath");
+        },
+
+        _checkUnloadNullClasspath : function(testName) {
+            try {
+                aria.core.ClassMgr.unloadClass(null);
+            } catch(e) {
+                this.fail("Unload class should not fail for null classpath.");
+            }
+            this.notifyTestEnd(testName);
+        },
+
+        testAsyncUnloadUndefinedClasspath : function() {
+            this._checkUnloadUndefinedClasspath("testAsyncUnloadUndefinedClasspath");
+        },
+
+        _checkUnloadUndefinedClasspath : function(testName) {
+            try {
+                aria.core.ClassMgr.unloadClass(undefined);
+            } catch(e) {
+                this.fail("Unload class should not fail for undefined classpath.");
+            }
+            this.notifyTestEnd(testName);
+        },
+
         /**
          * Check that a class file containing a wrong classpath raises the right error. (this is not really a unit test,
          * as it involves several components: MultiLoader, ClassMgr, ClassLoader)

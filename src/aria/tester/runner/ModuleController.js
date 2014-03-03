@@ -334,10 +334,11 @@ Aria.classDefinition({
             // unload all the classes that don' t belong to the framework
             var loadedClasses = aria.core.Cache.content.classes;
             for (var classpath in loadedClasses) {
-                if (!loadedClasses.hasOwnProperty(classpath) || classpath.indexOf("aria.") === 0) {
-                    continue;
-                }
+                //only check if classpath is not null/empty
                 if(classpath) {
+                    if (!loadedClasses.hasOwnProperty(classpath) || classpath.indexOf("aria.") === 0) {
+                        continue;
+                    }
                     aria.core.ClassMgr.unloadClass(classpath, true);
                 }
             }

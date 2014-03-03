@@ -273,26 +273,27 @@ Aria.classDefinition({
          * be bypassed by adding a timestamp to the url
          */
         unloadClass : function (classpath, timestampNextTime) {
-
-            // handle css dependency invalidation
-            var classRef = Aria.getClassRef(classpath);
-            // no class ref for beans
-            if (classRef) {
-                var classDef = Aria.getClassRef(classpath).classDefinition;
-                if (classDef && classDef.$css) {
-                    aria.templates.CSSMgr.unregisterDependencies(classpath, classDef.$css, true, timestampNextTime);
+            if(classpath) {
+                // handle css dependency invalidation
+                var classRef = Aria.getClassRef(classpath);
+                // no class ref for beans
+                if (classRef) {
+                    var classDef = Aria.getClassRef(classpath).classDefinition;
+                    if (classDef && classDef.$css) {
+                        aria.templates.CSSMgr.unregisterDependencies(classpath, classDef.$css, true, timestampNextTime);
+                    }
                 }
-            }
 
-            // clean the class
-            Aria.dispose(classpath);
-            Aria.cleanGetClassRefCache(classpath);
-            var logicalPath = aria.core.Cache.getFilename(classpath);
-            if (logicalPath) {
-                aria.core.DownloadMgr.clearFile(logicalPath, timestampNextTime);
+                // clean the class
+                Aria.dispose(classpath);
+                Aria.cleanGetClassRefCache(classpath);
+                var logicalPath = aria.core.Cache.getFilename(classpath);
+                if (logicalPath) {
+                    aria.core.DownloadMgr.clearFile(logicalPath, timestampNextTime);
+                }
+                var classesInCache = this._cache.content.classes;
+                delete classesInCache[classpath];
             }
-            var classesInCache = this._cache.content.classes;
-            delete classesInCache[classpath];
         },
 
         /**
